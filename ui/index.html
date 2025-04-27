@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" class="dark-theme" style="color-scheme: dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logoson.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NFTHunt</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+         crossorigin=""/>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+         crossorigin=""></script>
+
+    <style>
+      /*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      * {
+        margin: 0;
+      }
+      body {
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      img,
+      picture,
+      video,
+      canvas,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+      input,
+      button,
+      textarea,
+      select {
+        font: inherit;
+      }
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        overflow-wrap: break-word;
+      }
+      #root,
+      #__next {
+        isolation: isolate;
+      }
+
+@keyframes bgWave {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Keskin gradient için */
+.bg-animated {
+  background-image: linear-gradient(
+    -45deg, 
+    #3498db 25%, /* açık mavi */
+    #2ecc71 25%, /* yeşil */
+    #2ecc71 50%, 
+    #3498db 50%, 
+    #3498db 75%, 
+    #2ecc71 75%, 
+    #2ecc71 100%
+  );
+  background-size: 400% 400%;
+  animation: bgWave 30s ease infinite;
+}
+
+.bg-pattern {
+background-color: #e5e5f7;
+opacity: 0.8;
+background: radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#444cf7 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #444cf7 2px, #e5e5f7 2px) -1px 0;
+background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+}
+
+    </style>
+  </head>
+  <body >
+    <div id="root" style="background: 'var(--sky-track)'" ></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
