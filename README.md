@@ -1,4 +1,4 @@
-# 🏹 NFTHunt - Blockchain Tabanlı NFT Oyunu
+# 🗺️ NFTHunt - Blockchain Tabanlı NFT Oyunu
 
 **NFTHunt**, dünyadaki tarihi mekanlar ve özel yapılarla ilgili bilgi yarışması şeklinde oynanan bir **NFT tabanlı oyun** projesidir. Bu oyun, kullanıcıların bilgi edinirken eğlenmelerini, NFT kartları toplayarak koleksiyonlar oluşturmalarını sağlar.
 
@@ -14,57 +14,91 @@ NFTHunt, kullanıcıların dünyadaki önemli tarihi mekanlar ve yapılar hakkı
 - **🔗 NFT Kart Birleştirme**: Kullanıcılar, topladıkları kartları birleştirerek daha değerli ve nadir kartlar oluşturabilirler.
 - **🎮 Eğlenceli ve Etkileşimli**: Kullanıcılar, tarih ve kültür hakkında bilgi edinirken eğlenceli bir deneyim yaşar.
 
-## 🔧 Teknolojiler
+## 🔧 Kullanılan Teknolojiler
 
-- **💻 Blockchain**: Proje, **SUI** tabanlı bir blockchain altyapısı kullanmaktadır.
-- **💬 Move Programlama Dili**: NFT'ler ve işlemler **Move dili** ile yazılmıştır.
-- **🗺️ Harita ve Lokasyon**: Harita üzerindeki konum seçimleri, kullanıcılara doğru cevapları bulmalarında yardımcı olur.
+- **React**: Kullanıcı arayüzü için.
+- **Vite**: Hızlı geliştirme için.
+- **TypeScript**: Daha güvenli ve sağlam kod yazımı için.
+- **Node.js**: Sunucu tarafı işlemleri için.
+- **Leaflet**: Harita entegrasyonu için.
+- **SUI SDK**: Blockchain işlemleri için.
+- **SUI**: Blockchain altyapısı.
+- **Move Dili**: Blockchain tabanlı akıllı sözleşmeler için.
 
-## 📦 Kurulum
+## 📦 Kurulum ve Çalıştırma
 
 ### 1. 📋 Gereksinimler
 
-- **Node.js** ve **npm** kurulu olmalıdır.
-- **SUI Blockchain** altyapısı kurulu olmalıdır.
+- **Node.js** ve **Yarn** kurulu olmalıdır.
+- **SUI SDK** ve **SUI Move** yapılandırılmış olmalıdır.
 
 ### 2. ⚙️ Projeyi Çalıştırma
 
-1. Projeyi yerel bilgisayarınıza klonlayın:
+1. **Proje dosyasını klonlayın**:
     ```bash
-    git clone https://github.com/yourusername/NFTHunt.git
+    git clone https://github.com/yunusefeyilmaz/nft-hunt.git
     ```
 
-2. Proje dizinine gidin:
-    ```bash
-    cd NFTHunt
-    ```
+2. **SUI Move Projesi için Yapılandır**:
+   - **nfhunt** klasörüne gidin ve aşağıdaki komutları çalıştırın:
+     
+     ```bash
+     sui move build
+     sui move publish
+     ```
 
-3. Bağımlılıkları yükleyin:
-    ```bash
-    npm install
-    ```
+   - Gelen **packageId** frontend ile entegre edilir.
 
-4. Uygulamayı başlatın:
-    ```bash
-    npm start
-    ```
+3. **Frontend Yapılandırması:**:
+   - **frontend** klasörüne gidin:
+     
+     ```bash
+     cd frontend
+     ```
+     
+   - Gerekli kütüphaneleri yükleyin:
+     
+        ```bash
+        yarn install
+        ```
+   - Yapıyı oluşturun:
+     
+        ```bash
+        yarn run build
+        ```
+    - Uygulamanın önizlemesini başlatın:
+     
+        ```bash
+        yarn run preview
+        ```
+    
 
-## 🧑‍💻 Kullanıcı Kılavuzu
 
-### 1. 📝 Kaydolma ve Giriş Yapma
 
-1. **Hesap oluşturun**: Web sitesine giderek yeni bir kullanıcı kaydı oluşturun.
-2. **Giriş yapın**: Kendi kullanıcı adınız ve şifreniz ile sisteme giriş yapın.
+4. Uygulamaya Erişim:
+ - **localhost:4137** adresine giderek uygulamayı başlatın.
 
-### 2. 🎯 Soruları Cevaplama
+## 🧑‍💻 Uygulama Kullanımı
 
-1. **Soruları yanıtlayın**: Her gün size bir soru atanacak. Bu soruya 3 hakkınız olacak.
-2. **Haritadan doğru konumu seçin**: Doğru cevabı harita üzerinden seçin ve o mekanın NFT kartını kazanın.
+### 1. 📝 SUI Wallet ile giriş yapın:
 
-### 3. 💳 Kartları Biriktirme
+- Uygulamaya giriş yapmak için SUI Wallet hesabınızı bağlayın.
 
-1. **Kartlarınızı görüntüleyin**: Kazandığınız NFT kartlarını profil sayfanızda görüntüleyebilirsiniz.
-2. **Yeni koleksiyonlar açın**: Kartlarınızı birleştirerek daha değerli koleksiyon kartları oluşturun.
+### 2. 🎯 Yeni Bilmeceye Başlayın:
+
+- Ekranın üst kısmındaki Yeni Bilmece butonuna tıklayın.
+- Gerekli işlemler ve transaction'lar tamamlandıktan sonra, harita üzerinde doğru cevabı işaretleyin.
+
+### 3. 💳 Cevap Gönderme ve NFT Kazanma:
+
+- **Cevap Gönder** butonuna tıklayın.
+- Cevabınız doğruysa, NFT kartınız hesabınıza aktarılır.
+
+### 4. 📕 Kartlar ve Koleksiyonlar:
+
+- Sayfa altında kazandığınız kartlar ve koleksiyonlar görüntülenir.
+- Topladığınız kartları birleştirerek yeni koleksiyonlar oluşturabilirsiniz.
+
 
 ## 🚀 Gelecek Planları
 
@@ -76,11 +110,6 @@ NFTHunt, kullanıcıların dünyadaki önemli tarihi mekanlar ve yapılar hakkı
 
 Projeye katkıda bulunmak isterseniz, **Pull Request** göndererek önerilerinizi iletebilirsiniz.
 
-## 📝 Lisans
-
-Bu proje **MIT Lisansı** ile lisanslanmıştır.
-
----
 
 ## 📬 Katkı Sağlayanlar
 - https://github.com/gelisgen03
