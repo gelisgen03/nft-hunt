@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from "@radix-ui/themes";
 import { FaGithub, FaInstagram, FaLinkedin, } from "react-icons/fa"; // sosyal medya ikonları
+import { ThreeDots } from "./ThreeDots";
 
 export function Footer() {
     return (
@@ -11,13 +12,13 @@ export function Footer() {
             className="relative overflow-hidden"
         >
             <div className="absolute inset-0 from-blue-500 via-green-400 to-blue-700 bg-animated opacity-80"></div>
-
             <Flex
                 direction="column"
                 align="center"
                 justify="between"
                 className="relative z-10 mb-12 text-white space-y-4"
             >
+                <ThreeDots />
                 <Box className="text-center">
                     <img width={"128"} height={"128"} src="/logosonson.png"></img>
                 </Box>

@@ -86,16 +86,13 @@ export const MapBox = (props: any) => {
             });
         }
         const path = "/";
-        if (get_cookie('question')) {
-            document.cookie = 'question' + "=" +
-                ((path) ? ";path=" + path : "") +
-                ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-        }
-        if (get_cookie('player_id')) {
-            document.cookie = 'player_id' + "=" +
-                ((path) ? ";path=" + path : "") +
-                ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-        }
+        ['question', 'player_id'].forEach(cookie => {
+            if (get_cookie(cookie)) {
+                document.cookie = cookie + "=" +
+                    ";path=" + path +
+                    ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            }
+        });
         return (
             <MainPage />
         );
@@ -181,51 +178,43 @@ export const MapBox = (props: any) => {
             ]
         })
 
-        signAndExecute({
-            transaction: tx,
-            chain: 'sui:testnet',
-        },
+        signAndExecute(
+            {
+                transaction: tx,
+                chain: 'sui:testnet',
+            },
             {
                 onSuccess: (res) => {
                     console.log('object change', res.objectChanges);
 
-                    let qid = res.objectChanges?.find((e) => e.type == 'created');
+                    let qid = res.objectChanges!!.find((e) => e.type == 'created');
                     if (!qid) return;
 
                     set_question_id("player_id", qid.objectId);
 
-                    const tx = new Transaction();
-                    tx.moveCall({
+                    const txx = new Transaction();
+                    txx.moveCall({
                         target: `${package_id}::player::get_question_text`,
                         package: package_id,
                         module: "player",
                         arguments: [
-                            tx.object(qid.objectId),
+                            txx.object(qid.objectId),
                         ]
                     })
 
-                    signAndExecute({
-                        transaction: tx,
-                        chain: 'sui:testnet',
-                    },
+                    signAndExecute(
+                        {
+                            transaction: txx,
+                            chain: 'sui:testnet',
+                        },
                         {
                             onSuccess: (res) => {
                                 console.log('question', res.objectChanges);
 
-                                let qid = res.objectChanges?.find((e) => e.type == 'created');
+                                let qid = res.objectChanges!!.find((e) => e.type == 'created');
                                 if (!qid) return;
 
                                 set_question("question", qid.objectId);
-
-                                const tx = new Transaction();
-                                tx.moveCall({
-                                    target: `${package_id}::player::get_question_text`,
-                                    package: package_id,
-                                    module: "player",
-                                    arguments: [
-                                        tx.object(qid.objectId),
-                                    ]
-                                });
 
                                 getObjectById(client, qid.objectId)
                                     .then(res => { console.log('res', res); set_question("question", res); });
@@ -255,53 +244,49 @@ export const MapBox = (props: any) => {
                             <Label className="text-wrap text-xl text-center text-white">Bilmece Oluşturmak İçin Alttaki Butona Bas</Label>
                         </Badge>
                     }
-                    <Container
-                        p="2"
-                        height='70vh'
-                        style={{ minHeight: '50vh', width: '70vw', maxWidth: '1000px' }}
-                    >
-                        <MapContainer
-                            center={selectedPosition}
-                            zoom={6}
-                            scrollWheelZoom={true}
-                            style={{ height: "70vh" }}
-                        >
-                            <Markers />
-                            <TileLayer
-                                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-                        </MapContainer>
-                    </Container >
-                    {player_id.player_id && question.question ?
-                        <Flex direction="row" align="center" justify="center" className="m-4">
-                            <button
-                                type={'button'}
-                                onClick={send_answer}
-                                className={`p-2 m-2 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200`}
-                            >
-                                <FaCheck />Cevap Gönder
-                            </button>
-                            <button
-                                type={'button'}
-                                onClick={delete_question}
-                                className={`p-2 m-2 inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition duration-200`}
-                            >
-                                <FaRemoveFormat />Bilmeceyi Sil
-                            </button>
-                        </Flex>
-                        :
-                        <Flex direction="row" align="center" justify="center" className="m-4">
-                            <button
-                                type={'button'}
-                                onClick={create_question}
-                                className={`p-2 m-2 inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition duration-200`}
-                            >
-                                <FaQuestion />Yeni Bilmece
-                            </button>
-                        </Flex>
-                    }
                 </Container >
+                <Container height='70vh' width={"80vw"}>
+                    <MapContainer
+                        center={selectedPosition}
+                        zoom={6}
+                        scrollWheelZoom={true}
+                        style={{ height: "70vh" }}
+                    >
+                        <Markers />
+                        <TileLayer
+                            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                    </MapContainer>
+                </Container >
+                {player_id.player_id && question.question ?
+                    <Flex direction="row" align="center" justify="center" className="m-4">
+                        <button
+                            type={'button'}
+                            onClick={send_answer}
+                            className={`p-2 m-2 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200`}
+                        >
+                            <FaCheck />Cevap Gönder
+                        </button>
+                        <button
+                            type={'button'}
+                            onClick={delete_question}
+                            className={`p-2 m-2 inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition duration-200`}
+                        >
+                            <FaRemoveFormat />Bilmeceyi Sil
+                        </button>
+                    </Flex>
+                    :
+                    <Flex direction="row" align="center" justify="center" className="m-4">
+                        <button
+                            type={'button'}
+                            onClick={create_question}
+                            className={`p-2 m-2 inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition duration-200`}
+                        >
+                            <FaQuestion />Yeni Bilmece
+                        </button>
+                    </Flex>
+                }
             </Flex >
         </Container >
     )

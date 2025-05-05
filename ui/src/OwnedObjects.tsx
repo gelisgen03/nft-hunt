@@ -1,9 +1,10 @@
+import { useSuiClientContext, useSignAndExecuteTransaction } from "@mysten/dapp-kit";
 import { useCurrentAccount, useSuiClientQuery } from "@mysten/dapp-kit";
-import { useSuiClientContext, } from "@mysten/dapp-kit";
-import { useSignAndExecuteTransaction } from "@mysten/dapp-kit";
 import { Transaction } from "@mysten/sui/transactions";
-import { Button, Flex, } from "@radix-ui/themes";
+
 import { Header } from "@radix-ui/themes/components/table";
+import { Button, Flex, } from "@radix-ui/themes";
+import { ThreeDots } from "./ThreeDots";
 
 
 export function OwnedObjects(props: any) {
@@ -25,7 +26,6 @@ export function OwnedObjects(props: any) {
         },
         {
             enabled: !!account,
-
         },
     );
 
@@ -43,7 +43,6 @@ export function OwnedObjects(props: any) {
         },
         {
             enabled: !!account,
-
         },
     );
 
@@ -65,8 +64,9 @@ export function OwnedObjects(props: any) {
         let card2_id: string = '';
 
         console.log(card_data);
+        if (!card_data) return;
 
-        card_data?.data.forEach(e => {
+        card_data.data.forEach(e => {
             if (e.data?.display?.data!!.name == '#Pamukkale Travertenleri')
                 card1_id = e.data.objectId
             else if (e.data?.display?.data!!.name == '#Aya Sofya')
@@ -105,6 +105,7 @@ export function OwnedObjects(props: any) {
             },
         );
     }
+
     if (!account) {
         return;
     }
@@ -125,16 +126,6 @@ export function OwnedObjects(props: any) {
         return <Flex>Loading...</Flex>;
     }
 
-    if (card_data.data.length === 0) {
-        return (<hr />)
-    }
-
-    // if (collection_data.data.length === 0) {
-    // return (<hr />)
-    // }
-
-    card_data.data.map((object) => console.log(object))
-
     return (
         <Flex direction="column"
             align="center"
@@ -143,36 +134,45 @@ export function OwnedObjects(props: any) {
             <Header className="text-center font-bold text-6xl">
                 KARTLARIM
             </Header>
+            <ThreeDots />
             <Flex direction="row"
                 align="center"
                 justify="center"
+                minHeight={'200px'}
                 wrap={'wrap'}
+                mb={"4"}
                 my="8">
-                {card_data.data.map((object) => (
-                    <a href={`https://explorer.polymedia.app/object/${object.data?.objectId}?network=testnet`} key={object.data?.objectId} >
-                        < img style={{ maxHeight: "25rem" }} src={object.data?.display?.data!!.image_url}></img>
-                    </a>
-                ))
-                }
+                {card_data.data.length == 0 ?
+                    "Henuz bir karta sahip degilsin." :
+                    card_data.data.map((object) => (
+                        <a href={`https://explorer.polymedia.app/object/${object.data?.objectId}?network=testnet`} key={object.data?.objectId} >
+                            < img style={{ maxHeight: "25rem" }} src={object.data?.display?.data!!.image_url}></img>
+                        </a>
+                    ))}
             </Flex >
-            <Button m={'4'} onClick={collect_collection}>
-                Koleksiyon Kartı Oluştur
-            </Button>
-            <br />
+            {card_data.data.length > 0 ?
+                <Button m={'9'} mt={'0'} onClick={collect_collection}>
+                    Koleksiyon Kartı Oluştur
+                </Button>
+                : null
+            }
             <Header className="text-center font-bold text-6xl">
                 KOLEKSIYONLARIM
             </Header>
+            <ThreeDots />
             <Flex direction="row"
                 align="center"
                 justify="center"
+                minHeight={'200px'}
                 wrap={'wrap'}
                 my="8">
-                {collection_data.data.map((object) => (
-                    <a href={`https://explorer.polymedia.app/object/${object.data?.objectId}?network=testnet`} key={object.data?.objectId} >
-                        < img style={{ maxHeight: "25rem" }} src={object.data?.display?.data!!.image_url}></img>
-                    </a>
-                ))
-                }
+                {collection_data.data.length == 0 ?
+                    "Henuz bir koleksiyona sahip degilsin." :
+                    collection_data.data.map((object) => (
+                        <a href={`https://explorer.polymedia.app/object/${object.data?.objectId}?network=testnet`} key={object.data?.objectId} >
+                            < img style={{ maxHeight: "25rem" }} src={object.data?.display?.data!!.image_url}></img>
+                        </a>
+                    ))}
             </Flex >
         </Flex >
     );
