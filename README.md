@@ -6,6 +6,8 @@
 
 NFTHunt, kullanıcıların dünyadaki önemli tarihi mekanlar ve yapılar hakkında soruları cevaplayarak, doğru cevabı harita üzerinden seçip NFT kartları kazandıkları bir oyun platformudur. Her gün yeni bir soru ile kullanıcılar etkileşime girer ve kart koleksiyonları oluştururlar. Kartlar birleştirilerek daha değerli koleksiyonlar oluşturulabilir.
 
+Link: https://nfthunt-rosy.vercel.app/
+
 ## 💡 Özellikler
 
 - **🎯 Günlük Sorular**: Kullanıcıya her gün bir tarihi mekan ya da yapı ile ilgili soru sorulur.
@@ -49,8 +51,8 @@ NFTHunt, kullanıcıların dünyadaki önemli tarihi mekanlar ve yapılar hakkı
 
    - Gelen **packageId** frontend ile entegre edilir.
 
-3. **Frontend Yapılandırması:**:
-   - **frontend** klasörüne gidin:
+3. **UI Yapılandırması:**:
+   - **UI** klasörüne gidin:
      
      ```bash
      cd frontend
